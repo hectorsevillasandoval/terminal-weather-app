@@ -17,11 +17,25 @@ const questions = [
 
 const inquirerMenu = async () => {
     console.clear();
-    console.log('='.repeat(20).green);
-    console.log('Terminal Weather APP'.white);
-    console.log('='.repeat(20).green);
+    console.log('*'.repeat(100).green);
+    console.log(`
+
+    
+██╗    ██╗███████╗ █████╗ ████████╗██╗  ██╗███████╗██████╗      █████╗ ██████╗ ██████╗ 
+██║    ██║██╔════╝██╔══██╗╚══██╔══╝██║  ██║██╔════╝██╔══██╗    ██╔══██╗██╔══██╗██╔══██╗
+██║ █╗ ██║█████╗  ███████║   ██║   ███████║█████╗  ██████╔╝    ███████║██████╔╝██████╔╝
+██║███╗██║██╔══╝  ██╔══██║   ██║   ██╔══██║██╔══╝  ██╔══██╗    ██╔══██║██╔═══╝ ██╔═══╝ 
+╚███╔███╔╝███████╗██║  ██║   ██║   ██║  ██║███████╗██║  ██║    ██║  ██║██║     ██║     
+ ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝     ╚═╝     
+                                                                                       
+
+   `.green);
+    console.log('*'.repeat(100).green);
+    console.log('\n');
 
     const { option } = await inquirer.prompt(questions);
+
+    console.log('\n');
 
     return option;
 };

@@ -1,13 +1,15 @@
 require('dotenv').config();
 require('colors');
+const fs = require('node:fs');
 
 class Search {
-    history = [ 'Miami', 'Guatemala', 'Managua', 'Cartago' ];
+    history = [];
     MAPBOX_API_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
     WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
+    dbPath = './db/database.json';
 
     constructor(){
-        // TODO: read DB if exists
+        this.readDb();
     }
 
     get mapboxParams(){
@@ -23,6 +25,15 @@ class Search {
             'appid': process.env.OPENWEATHER_KEY,
             units: 'metric'
         };
+    }
+
+    get capitalizeHistory(){
+        //[ 'San Jose' ]
+        return this.history.map( place => {
+            let words = place.split(' ');
+            words = words.map( p => p[0].toUpperCase() + p.substring(1) );
+            return words.join(' ');
+        });
     }
 
     /**
@@ -66,6 +77,39 @@ class Search {
             console.error( 'Error, something happened'.red );
             return [];
         }
+    }
+
+    addToHistory( place = '' ){
+
+        place = place.toLowerCase();
+        
+        if( this.history.includes( place ) ) return;
+
+        this.history.unshift( place );
+
+        this.saveDb();
+        
+        return;
+    }
+
+    saveDb() {
+        const payload = {
+            history: this.history
+        };
+
+        fs.writeFileSync( this.dbPath, JSON.stringify( payload ) );
+
+        return true;
+    }
+
+    readDb() {
+        if( !fs.existsSync( this.dbPath ) ) return;
+        
+        const info = fs.readFileSync( this.dbPath, { encoding: 'utf-8' });
+        if( !info ) return;
+        const data = JSON.parse( info );
+
+        this.history = data.history;
     }
 }
 

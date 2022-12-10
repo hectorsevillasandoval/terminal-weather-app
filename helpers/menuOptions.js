@@ -1,15 +1,15 @@
 const menu = [
     {
         value: 1,
-        name: 'Buscar Ciudad'
+        name: 'Look for a City'
     },
     {
         value: 2,
-        name: 'Historial'
+        name: 'History'
     },
     {
         value: 0,
-        name: 'Salir'
+        name: 'Exit'
     },
 ];
 
